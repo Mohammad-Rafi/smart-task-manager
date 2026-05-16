@@ -21,4 +21,4 @@ python-dotenv>=1.0.0
 
 # Production Server & Static Files
 gunicorn>=21.0.0
-whitenoise[brotli]>=6.6.0
+whitenoise>=6.6.0
