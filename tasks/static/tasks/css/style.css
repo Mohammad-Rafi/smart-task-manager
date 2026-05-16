@@ -1,268 +1,299 @@
-/* Smart Task Manager - Fixed Styles */
-/* Properly overrides Bootstrap for dark theme */
+/* Smart Task Manager - Fixed Dark Theme */
 
 /* ============================================
-   CSS VARIABLES
+   BASE OVERRIDES
    ============================================ */
-:root {
-    --bg-dark: #0a192f;
-    --bg-card: #112240;
-    --bg-light: #233554;
-    --bg-hover: #1d3557;
-    --text-primary: #e6f1ff;
-    --text-secondary: #8892b0;
-    --text-muted: #64ffda;
-    --accent: #64ffda;
-    --accent-hover: #4fd1b8;
-    --danger: #ef476f;
-    --warning: #ffd166;
-    --success: #06d6a0;
-    --info: #64ffda;
-    --border-color: #233554;
+body.bg-dark {
+    background-color: #0a192f !important;
+    color: #e6f1ff !important;
 }
 
-/* ============================================
-   BASE STYLES (High specificity to override Bootstrap)
-   ============================================ */
-html body {
-    background-color: var(--bg-dark) !important;
-    color: var(--text-primary) !important;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    min-height: 100vh;
+body.bg-dark h1,
+body.bg-dark h2,
+body.bg-dark h3,
+body.bg-dark h4,
+body.bg-dark h5,
+body.bg-dark h6,
+body.bg-dark p,
+body.bg-dark li,
+body.bg-dark td,
+body.bg-dark th,
+body.bg-dark label,
+body.bg-dark strong {
+    color: #e6f1ff !important;
 }
 
-/* ============================================
-   TEXT COLORS (Override Bootstrap text colors)
-   ============================================ */
-html body,
-html body h1, html body h2, html body h3, 
-html body h4, html body h5, html body h6,
-html body p, html body span, html body div,
-html body a, html body li, html body td,
-html body th, html body label, html body strong,
-html body .card-title, html body .card-text,
-html body .stat-number, html body .stat-label,
-html body .task-title, html body .task-desc,
-html body .category-name, html body .nav-link,
-html body .dropdown-item, html body .form-label,
-html body .breadcrumb-item, html body .page-link,
-html body .list-group-item, html body .alert,
-html body .modal-title, html body .modal-body,
-html body .toast, html body .popover,
-html body .tooltip, html body .badge {
-    color: var(--text-primary) !important;
+body.bg-dark .text-muted,
+body.bg-dark .text-secondary,
+body.bg-dark .form-text,
+body.bg-dark small,
+body.bg-dark .small {
+    color: #8892b0 !important;
 }
 
-/* Secondary/Muted text */
-html body .text-muted,
-html body .text-secondary,
-html body .form-text,
-html body small,
-html body .small {
-    color: var(--text-secondary) !important;
+body.bg-dark a:not(.btn) {
+    color: #64ffda !important;
 }
 
-/* Links */
-html body a {
-    color: var(--accent) !important;
-    text-decoration: none !important;
-    transition: color 0.2s ease;
+body.bg-dark a:not(.btn):hover {
+    color: #4fd1b8 !important;
 }
 
-html body a:hover {
-    color: var(--accent-hover) !important;
-    text-decoration: underline !important;
+body.bg-dark .nav-link {
+    color: #8892b0 !important;
 }
 
-/* ============================================
-   BACKGROUND COLORS
-   ============================================ */
-html body .card,
-html body .modal-content,
-html body .dropdown-menu,
-html body .list-group-item,
-html body .toast,
-html body .popover,
-html body .offcanvas {
-    background-color: var(--bg-card) !important;
-    border-color: var(--border-color) !important;
-}
-
-html body .card-header,
-html body .modal-header,
-html body .list-group-item-action:hover,
-html body .dropdown-item:hover,
-html body .table-hover tbody tr:hover {
-    background-color: var(--bg-hover) !important;
-}
-
-/* ============================================
-   FORM CONTROLS
-   ============================================ */
-html body .form-control,
-html body .form-select,
-html body .input-group-text {
-    background-color: var(--bg-card) !important;
-    border-color: var(--border-color) !important;
-    color: var(--text-primary) !important;
-}
-
-html body .form-control:focus,
-html body .form-select:focus {
-    background-color: var(--bg-card) !important;
-    border-color: var(--accent) !important;
-    color: var(--text-primary) !important;
-    box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.15) !important;
-}
-
-html body .form-control::placeholder {
-    color: var(--text-secondary) !important;
+body.bg-dark .nav-link:hover,
+body.bg-dark .nav-link.active {
+    color: #64ffda !important;
 }
 
 /* ============================================
    BUTTONS
    ============================================ */
-html body .btn-info {
-    background-color: var(--accent) !important;
-    border-color: var(--accent) !important;
-    color: var(--bg-dark) !important;
+body.bg-dark .btn-info,
+body.bg-dark .btn-primary,
+body.bg-dark .btn-outline-info:hover,
+body.bg-dark .page-item.active .page-link {
+    background-color: #64ffda !important;
+    border-color: #64ffda !important;
+    color: #0a192f !important;
     font-weight: 600 !important;
 }
 
-html body .btn-info:hover {
-    background-color: var(--accent-hover) !important;
-    border-color: var(--accent-hover) !important;
-    color: var(--bg-dark) !important;
+body.bg-dark .btn-info:hover,
+body.bg-dark .btn-primary:hover {
+    background-color: #4fd1b8 !important;
+    border-color: #4fd1b8 !important;
+    color: #0a192f !important;
 }
 
-html body .btn-outline-info {
-    border-color: var(--accent) !important;
-    color: var(--accent) !important;
+body.bg-dark .btn-outline-info {
+    border-color: #64ffda !important;
+    color: #64ffda !important;
     background-color: transparent !important;
 }
 
-html body .btn-outline-info:hover {
-    background-color: var(--accent) !important;
-    color: var(--bg-dark) !important;
+body.bg-dark .btn-secondary {
+    background-color: #233554 !important;
+    border-color: #233554 !important;
+    color: #e6f1ff !important;
 }
 
-html body .btn-primary {
-    background-color: var(--accent) !important;
-    border-color: var(--accent) !important;
-    color: var(--bg-dark) !important;
+body.bg-dark .btn-outline-secondary {
+    border-color: #233554 !important;
+    color: #e6f1ff !important;
 }
 
-html body .btn-secondary {
-    background-color: var(--bg-light) !important;
-    border-color: var(--border-color) !important;
-    color: var(--text-primary) !important;
+body.bg-dark .btn-outline-secondary:hover {
+    background-color: #233554 !important;
+    color: #e6f1ff !important;
+}
+
+body.bg-dark .btn-danger {
+    background-color: #ef476f !important;
+    border-color: #ef476f !important;
+    color: #0a192f !important;
+}
+
+body.bg-dark .btn-outline-danger {
+    border-color: #ef476f !important;
+    color: #ef476f !important;
+}
+
+body.bg-dark .btn-outline-danger:hover {
+    background-color: #ef476f !important;
+    color: #0a192f !important;
+}
+
+body.bg-dark .btn-success {
+    background-color: #06d6a0 !important;
+    border-color: #06d6a0 !important;
+    color: #0a192f !important;
+}
+
+body.bg-dark .btn-outline-success {
+    border-color: #06d6a0 !important;
+    color: #06d6a0 !important;
+}
+
+body.bg-dark .btn-outline-success:hover {
+    background-color: #06d6a0 !important;
+    color: #0a192f !important;
+}
+
+body.bg-dark .btn-warning {
+    background-color: #ffd166 !important;
+    border-color: #ffd166 !important;
+    color: #0a192f !important;
+}
+
+body.bg-dark .btn-outline-warning {
+    border-color: #ffd166 !important;
+    color: #ffd166 !important;
+}
+
+body.bg-dark .btn-outline-warning:hover {
+    background-color: #ffd166 !important;
+    color: #0a192f !important;
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+body.bg-dark .card,
+body.bg-dark .modal-content,
+body.bg-dark .dropdown-menu,
+body.bg-dark .list-group-item {
+    background-color: #112240 !important;
+    border-color: #233554 !important;
+}
+
+body.bg-dark .card-header,
+body.bg-dark .dropdown-item:hover {
+    background-color: #1d3557 !important;
+}
+
+/* ============================================
+   FORMS - CRITICAL FIXES
+   ============================================ */
+body.bg-dark .form-control,
+body.bg-dark .form-select,
+body.bg-dark .input-group-text {
+    background-color: #112240 !important;
+    border-color: #233554 !important;
+    color: #e6f1ff !important;
+}
+
+body.bg-dark .form-control:focus,
+body.bg-dark .form-select:focus {
+    background-color: #112240 !important;
+    border-color: #64ffda !important;
+    color: #e6f1ff !important;
+    box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.15) !important;
+}
+
+body.bg-dark .form-control::placeholder {
+    color: #8892b0 !important;
+}
+
+/* FIX: Ensure form labels are visible */
+body.bg-dark .form-label {
+    color: #e6f1ff !important;
+    font-weight: 500;
+}
+
+/* FIX: Ensure checkbox labels are visible */
+body.bg-dark .form-check-label {
+    color: #e6f1ff !important;
+}
+
+/* FIX: Ensure checkboxes themselves are styled */
+body.bg-dark .form-check-input {
+    background-color: #112240 !important;
+    border-color: #233554 !important;
+}
+
+body.bg-dark .form-check-input:checked {
+    background-color: #64ffda !important;
+    border-color: #64ffda !important;
+}
+
+/* FIX: Select dropdown options */
+body.bg-dark .form-select option {
+    background-color: #112240 !important;
+    color: #e6f1ff !important;
 }
 
 /* ============================================
    NAVBAR
    ============================================ */
-html body .navbar {
-    background-color: var(--bg-card) !important;
-    border-bottom: 1px solid var(--border-color) !important;
+body.bg-dark .navbar {
+    background-color: #112240 !important;
+    border-bottom: 1px solid #233554 !important;
 }
 
-html body .navbar-brand {
-    color: var(--accent) !important;
-    font-weight: 700 !important;
-}
-
-html body .navbar-brand:hover {
-    color: var(--accent-hover) !important;
-}
-
-html body .nav-link {
-    color: var(--text-secondary) !important;
-    font-weight: 500 !important;
-    transition: color 0.2s ease !important;
-}
-
-html body .nav-link:hover,
-html body .nav-link.active {
-    color: var(--accent) !important;
+body.bg-dark .navbar-brand {
+    color: #64ffda !important;
+    font-weight: 700;
 }
 
 /* ============================================
    TABLES
    ============================================ */
-html body .table {
-    color: var(--text-primary) !important;
+body.bg-dark .table {
+    color: #e6f1ff !important;
 }
 
-html body .table thead th {
-    border-bottom-color: var(--border-color) !important;
-    color: var(--text-secondary) !important;
+body.bg-dark .table thead th {
+    border-bottom-color: #233554 !important;
+    color: #8892b0 !important;
 }
 
-html body .table td,
-html body .table th {
-    border-top-color: var(--border-color) !important;
+body.bg-dark .table td,
+body.bg-dark .table th {
+    border-top-color: #233554 !important;
 }
 
 /* ============================================
    ALERTS
    ============================================ */
-html body .alert-danger {
+body.bg-dark .alert-danger {
     background-color: rgba(239, 71, 111, 0.1) !important;
-    border-color: var(--danger) !important;
-    color: var(--danger) !important;
+    border-color: #ef476f !important;
+    color: #ef476f !important;
 }
 
-html body .alert-success {
+body.bg-dark .alert-success {
     background-color: rgba(6, 214, 160, 0.1) !important;
-    border-color: var(--success) !important;
-    color: var(--success) !important;
+    border-color: #06d6a0 !important;
+    color: #06d6a0 !important;
 }
 
-html body .alert-warning {
+body.bg-dark .alert-warning {
     background-color: rgba(255, 209, 102, 0.1) !important;
-    border-color: var(--warning) !important;
-    color: var(--warning) !important;
+    border-color: #ffd166 !important;
+    color: #ffd166 !important;
+}
+
+body.bg-dark .alert-info {
+    background-color: rgba(100, 255, 218, 0.1) !important;
+    border-color: #64ffda !important;
+    color: #64ffda !important;
 }
 
 /* ============================================
    PAGINATION
    ============================================ */
-html body .page-link {
-    background-color: var(--bg-card) !important;
-    border-color: var(--border-color) !important;
-    color: var(--text-primary) !important;
-    transition: all 0.2s ease;
+body.bg-dark .page-link {
+    background-color: #112240 !important;
+    border-color: #233554 !important;
+    color: #e6f1ff !important;
 }
 
-html body .page-link:hover {
-    background-color: var(--bg-hover) !important;
-    border-color: var(--accent) !important;
-    color: var(--accent) !important;
-}
-
-html body .page-item.active .page-link {
-    background-color: var(--accent) !important;
-    border-color: var(--accent) !important;
-    color: var(--bg-dark) !important;
-}
-
-/* ============================================
-   BREADCRUMB
-   ============================================ */
-html body .breadcrumb-item + .breadcrumb-item::before {
-    color: var(--text-secondary) !important;
-}
-
-html body .breadcrumb-item.active {
-    color: var(--text-secondary) !important;
+body.bg-dark .page-link:hover {
+    background-color: #1d3557 !important;
+    border-color: #64ffda !important;
+    color: #64ffda !important;
 }
 
 /* ============================================
    BADGES
    ============================================ */
-html body .badge {
-    font-weight: 500 !important;
-    padding: 0.4em 0.8em !important;
+body.bg-dark .badge {
+    font-weight: 500;
+    padding: 0.4em 0.8em;
+}
+
+/* ============================================
+   BREADCRUMB
+   ============================================ */
+body.bg-dark .breadcrumb-item.active {
+    color: #e6f1ff !important;
+}
+
+body.bg-dark .breadcrumb-item + .breadcrumb-item::before {
+    color: #8892b0 !important;
 }
 
 /* ============================================
@@ -273,24 +304,16 @@ html body .badge {
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-dark);
+    background: #0a192f;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--bg-light);
+    background: #233554;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-secondary);
-}
-
-/* ============================================
-   SELECTION
-   ============================================ */
-::selection {
-    background: rgba(100, 255, 218, 0.2);
-    color: var(--accent);
+    background: #8892b0;
 }
 
 /* ============================================
@@ -306,11 +329,11 @@ html body .badge {
 }
 
 /* ============================================
-   DASHBOARD SPECIFIC
+   DASHBOARD
    ============================================ */
 .stat-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: #112240;
+    border: 1px solid #233554;
     border-radius: 12px;
     padding: 1.5rem;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -329,19 +352,19 @@ html body .badge {
     justify-content: center;
     background: rgba(100, 255, 218, 0.1);
     border-radius: 12px;
-    color: var(--accent);
+    color: #64ffda;
 }
 
 .stat-number {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #e6f1ff;
     line-height: 1;
 }
 
 .stat-label {
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: #8892b0;
     margin-top: 0.5rem;
 }
 
@@ -349,26 +372,26 @@ html body .badge {
    TASK CARDS
    ============================================ */
 .task-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: #112240;
+    border: 1px solid #233554;
     border-radius: 8px;
     padding: 1rem;
     transition: all 0.2s ease;
 }
 
 .task-card:hover {
-    border-color: var(--accent);
+    border-color: #64ffda;
     transform: translateY(-2px);
 }
 
 .task-title {
     font-weight: 600;
-    color: var(--text-primary);
+    color: #e6f1ff;
 }
 
 .task-meta {
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: #8892b0;
 }
 
 /* ============================================
@@ -384,7 +407,7 @@ html body .badge {
 }
 
 .category-item:hover {
-    background: var(--bg-hover);
+    background: #1d3557;
 }
 
 .category-color {
@@ -396,16 +419,31 @@ html body .badge {
 
 .category-name {
     font-weight: 500;
-    color: var(--text-primary);
+    color: #e6f1ff;
 }
 
 .category-count {
     margin-left: auto;
     font-size: 0.875rem;
-    color: var(--text-secondary);
-    background: var(--bg-light);
+    color: #8892b0;
+    background: #233554;
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
+}
+
+/* ============================================
+   FILE INPUT STYLING
+   ============================================ */
+body.bg-dark input[type="file"]::-webkit-file-upload-button {
+    background-color: #233554 !important;
+    color: #e6f1ff !important;
+    border: 1px solid #233554 !important;
+}
+
+body.bg-dark input[type="file"]::file-selector-button {
+    background-color: #233554 !important;
+    color: #e6f1ff !important;
+    border: 1px solid #233554 !important;
 }
 
 /* ============================================

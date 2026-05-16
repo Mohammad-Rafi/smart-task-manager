@@ -1,4 +1,5 @@
 {% extends 'tasks/base.html' %}
+{% load static %}
 {% block title %}{{ action }} Task - Smart Task Manager{% endblock %}
 
 {% block content %}
@@ -6,7 +7,7 @@
     <div class="col-lg-8">
         <div class="card bg-dark border-secondary">
             <div class="card-header bg-transparent border-secondary">
-                <h4 class="mb-0">
+                <h4 class="mb-0 text-light">
                     <i class="bi bi-{% if action == 'Create' %}plus-lg{% else %}pencil{% endif %} text-info me-2"></i>
                     {{ action }} Task
                 </h4>
@@ -16,16 +17,21 @@
                     {% csrf_token %}
 
                     <div class="mb-3">
-                        <label class="form-label">Title <span class="text-danger">*</span></label>
-                        {{ form.title }}
+                        <label class="form-label text-light">Title <span class="text-danger">*</span></label>
+                        <input type="text" name="{{ form.title.name }}" id="{{ form.title.id_for_label }}"
+                               class="form-control bg-dark text-light border-secondary"
+                               placeholder="Enter task title"
+                               value="{{ form.title.value|default:'' }}" required>
                         {% if form.title.errors %}
                         <div class="text-danger small mt-1">{{ form.title.errors.0 }}</div>
                         {% endif %}
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        {{ form.description }}
+                        <label class="form-label text-light">Description</label>
+                        <textarea name="{{ form.description.name }}" id="{{ form.description.id_for_label }}"
+                                  class="form-control bg-dark text-light border-secondary" rows="4"
+                                  placeholder="Enter task description">{{ form.description.value|default:'' }}</textarea>
                         {% if form.description.errors %}
                         <div class="text-danger small mt-1">{{ form.description.errors.0 }}</div>
                         {% endif %}
@@ -33,36 +39,59 @@
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-4">
-                            <label class="form-label">Status</label>
-                            {{ form.status }}
+                            <label class="form-label text-light">Status</label>
+                            <select name="{{ form.status.name }}" id="{{ form.status.id_for_label }}"
+                                    class="form-select bg-dark text-light border-secondary">
+                                {% for choice in form.status.field.choices %}
+                                <option value="{{ choice.0 }}" {% if form.status.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Priority</label>
-                            {{ form.priority }}
+                            <label class="form-label text-light">Priority</label>
+                            <select name="{{ form.priority.name }}" id="{{ form.priority.id_for_label }}"
+                                    class="form-select bg-dark text-light border-secondary">
+                                {% for choice in form.priority.field.choices %}
+                                <option value="{{ choice.0 }}" {% if form.priority.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Category</label>
-                            {{ form.category }}
+                            <label class="form-label text-light">Category</label>
+                            <select name="{{ form.category.name }}" id="{{ form.category.id_for_label }}"
+                                    class="form-select bg-dark text-light border-secondary">
+                                <option value="">-- Select --</option>
+                                {% for choice in form.category.field.choices %}
+                                {% if choice.0 %}
+                                <option value="{{ choice.0 }}" {% if form.category.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label class="form-label">Due Date</label>
-                            {{ form.due_date }}
+                            <label class="form-label text-light">Due Date</label>
+                            <input type="date" name="{{ form.due_date.name }}" id="{{ form.due_date.id_for_label }}"
+                                   class="form-control bg-dark text-light border-secondary"
+                                   value="{{ form.due_date.value|default:''|date:'Y-m-d' }}">
                             {% if form.due_date.errors %}
                             <div class="text-danger small mt-1">{{ form.due_date.errors.0 }}</div>
                             {% endif %}
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Tags</label>
-                            {{ form.tags_input }}
+                            <label class="form-label text-light">Tags</label>
+                            <input type="text" name="{{ form.tags_input.name }}" id="{{ form.tags_input.id_for_label }}"
+                                   class="form-control bg-dark text-light border-secondary"
+                                   placeholder="work, urgent, client-a"
+                                   value="{{ form.tags_input.value|default:'' }}">
                             <small class="text-muted">Comma separated (e.g., work, urgent, client-a)</small>
                         </div>
                     </div>
 
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-info">
+                        <button type="submit" class="btn btn-info fw-bold">
                             <i class="bi bi-check-lg me-2"></i>{{ action }} Task
                         </button>
                         <a href="{% url 'tasks:task_list' %}" class="btn btn-outline-secondary">

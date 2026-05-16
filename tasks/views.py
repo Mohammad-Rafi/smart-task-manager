@@ -17,6 +17,7 @@ from django.http import JsonResponse, HttpResponseForbidden
 from django.db.models import Q, Count
 from django.utils import timezone
 from django.core.paginator import Paginator
+import json
 
 from .models import Category, Task, TaskAttachment, TaskActivity
 from .forms import (
@@ -162,6 +163,10 @@ class TaskListView(LoginRequiredMixin, ListView):
         user = self.request.user
         queryset = Task.objects.filter(user=user).select_related('category')
 
+        # FIX 1: Check show_archived from raw GET before form validation
+        # HTML checkbox sends 'on' when checked, not True/False
+        show_archived = self.request.GET.get('show_archived') == 'on'
+
         # Filter form processing
         self.filter_form = TaskFilterForm(user=user, data=self.request.GET)
         if self.filter_form.is_valid():
@@ -182,8 +187,10 @@ class TaskListView(LoginRequiredMixin, ListView):
                 )
             if data.get('due_before'):
                 queryset = queryset.filter(due_date__lte=data['due_before'])
-            if not data.get('show_archived'):
-                queryset = queryset.filter(is_archived=False)
+
+        # FIX 2: Apply archived filter based on checkbox state
+        if not show_archived:
+            queryset = queryset.filter(is_archived=False)
 
         return queryset.order_by('-created_at')
 
@@ -192,9 +199,16 @@ class TaskListView(LoginRequiredMixin, ListView):
         context['filter_form'] = self.filter_form
         context['total_count'] = self.get_queryset().count()
 
-        # Status counts for sidebar
+        # FIX 3: Status counts must match current filter view (include archived if showing archived)
         user = self.request.user
-        base = Task.objects.filter(user=user, is_archived=False)
+        show_archived = self.request.GET.get('show_archived') == 'on'
+        
+        # Base queryset for counts respects the archived filter
+        if show_archived:
+            base = Task.objects.filter(user=user)
+        else:
+            base = Task.objects.filter(user=user, is_archived=False)
+            
         context['status_counts'] = {
             'all': base.count(),
             'pending': base.filter(status='pending').count(),
@@ -352,10 +366,20 @@ def task_toggle_status(request, pk):
     task = get_object_or_404(Task, pk=pk, user=request.user)
 
     if request.method == 'POST':
-        new_status = request.POST.get('status')
-        old_status = task.status
+        new_status = None
+        
+        # Handle both FormData (from JS) and regular POST
+        if request.content_type == 'application/json':
+            try:
+                body = json.loads(request.body)
+                new_status = body.get('status')
+            except json.JSONDecodeError:
+                pass
+        else:
+            new_status = request.POST.get('status')
 
-        if new_status in dict(Task._meta.get_field('status').choices):
+        if new_status and new_status in dict(Task._meta.get_field('status').choices):
+            old_status = task.status
             task.status = new_status
             if new_status == 'completed':
                 task.completed_at = timezone.now()
@@ -529,7 +553,23 @@ def attachment_delete(request, pk):
     """Delete file attachment."""
     attachment = get_object_or_404(TaskAttachment, pk=pk, task__user=request.user)
     task_pk = attachment.task.pk
-    attachment.delete()
+    
+    if request.method == 'POST':
+        filename = attachment.filename
+        attachment.delete()
+        
+        TaskActivity.objects.create(
+            task=attachment.task,
+            user=request.user,
+            action='attachment_deleted',
+            description=f'Attachment "{filename}" deleted'
+        )
 
-    messages.info(request, 'Attachment deleted.')
-    return redirect('tasks:task_detail', pk=task_pk)
+        messages.info(request, 'Attachment deleted.')
+        return redirect('tasks:task_detail', pk=task_pk)
+    
+    # GET request - show confirmation page
+    return render(request, 'tasks/attachment_confirm_delete.html', {
+        'attachment': attachment,
+        'task': attachment.task
+    })

@@ -24,6 +24,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.exceptions import ValidationError as DRFValidationError
 from django_filters.rest_framework import DjangoFilterBackend
 
+# FIXED: Was 'from .models import ...' — models are in parent tasks folder, not api folder
 from tasks.models import Task, Category, TaskAttachment, TaskActivity
 from .serializers import (
     CategorySerializer,

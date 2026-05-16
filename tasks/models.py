@@ -146,10 +146,11 @@ class Task(TimestampMixin):
         db_index=True,
         help_text="Soft-delete flag for archived tasks"
     )
-    tags = models.JSONField(
-        default=list,
+    tags = models.CharField(
+        max_length=500,
         blank=True,
-        help_text="Array of string tags for flexible filtering"
+        default='',
+        help_text="Comma-separated tags (e.g., work, urgent, client-a)"
     )
 
     class Meta:
@@ -187,6 +188,13 @@ class Task(TimestampMixin):
             delta = self.due_date - date.today()
             return delta.days
         return None
+
+    @property
+    def tags_list(self):
+        """Return tags as a list from comma-separated string."""
+        if not self.tags:
+            return []
+        return [tag.strip() for tag in self.tags.split(',') if tag.strip()]
 
     def mark_complete(self):
         """Mark task as completed with timestamp."""

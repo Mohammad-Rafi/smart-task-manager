@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Task status toggle via AJAX
+    // Task status toggle via AJAX (FIXED: sends FormData instead of JSON)
     const statusToggles = document.querySelectorAll('.status-toggle');
     statusToggles.forEach(function(toggle) {
         toggle.addEventListener('click', function(e) {
@@ -31,18 +31,30 @@ document.addEventListener('DOMContentLoaded', function() {
             const url = this.dataset.url;
             const status = this.dataset.status;
 
+            // FIXED: Use FormData so Django request.POST works properly
+            const formData = new FormData();
+            formData.append('status', status);
+            formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+
             fetch(url, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
                     'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
-                body: JSON.stringify({status: status})
+                body: formData  // FIXED: was JSON.stringify({status: status})
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     window.location.reload();
+                } else {
+                    console.error('Server error:', data);
                 }
             })
             .catch(error => console.error('Error:', error));

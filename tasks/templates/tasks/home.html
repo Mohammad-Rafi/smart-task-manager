@@ -6,7 +6,7 @@
 {% block content %}
 <div class="row align-items-center min-vh-75">
     <div class="col-lg-6">
-        <h1 class="display-4 fw-bold mb-4">
+        <h1 class="display-4 fw-bold mb-4 text-light">
             Organize Your Tasks<br>
             <span class="text-info">Effortlessly</span>
         </h1>
@@ -15,7 +15,7 @@
             Create tasks, set deadlines, categorize work, and track progress — all in one place.
         </p>
         <div class="d-flex gap-3">
-            <a href="{% url 'tasks:signup' %}" class="btn btn-info btn-lg px-4">
+            <a href="{% url 'tasks:signup' %}" class="btn btn-info btn-lg px-4 fw-bold">
                 <i class="bi bi-rocket me-2"></i>Get Started
             </a>
             <a href="{% url 'tasks:login' %}" class="btn btn-outline-light btn-lg px-4">
@@ -40,7 +40,7 @@
         <div class="card bg-dark border-secondary h-100">
             <div class="card-body text-center p-4">
                 <i class="bi bi-list-check display-4 text-info mb-3"></i>
-                <h5>Task Management</h5>
+                <h5 class="text-light">Task Management</h5>
                 <p class="text-muted">Create, edit, and organize tasks with categories and priorities.</p>
             </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="card bg-dark border-secondary h-100">
             <div class="card-body text-center p-4">
                 <i class="bi bi-calendar-check display-4 text-info mb-3"></i>
-                <h5>Deadline Tracking</h5>
+                <h5 class="text-light">Deadline Tracking</h5>
                 <p class="text-muted">Set due dates and never miss a deadline with smart reminders.</p>
             </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="card bg-dark border-secondary h-100">
             <div class="card-body text-center p-4">
                 <i class="bi bi-phone display-4 text-info mb-3"></i>
-                <h5>REST API</h5>
+                <h5 class="text-light">REST API</h5>
                 <p class="text-muted">Full REST API with JWT authentication for mobile integration.</p>
             </div>
         </div>

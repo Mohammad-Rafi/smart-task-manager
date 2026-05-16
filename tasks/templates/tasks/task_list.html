@@ -1,15 +1,15 @@
 {% extends 'tasks/base.html' %}
-{% load custom_filters %}
+{% load static %}
 {% block title %}Tasks - Smart Task Manager{% endblock %}
 
 {% block content %}
 <div class="row mb-4">
     <div class="col">
-        <h2><i class="bi bi-list-task text-info me-2"></i>Tasks</h2>
+        <h2 class="text-light"><i class="bi bi-list-task text-info me-2"></i>Tasks</h2>
         <p class="text-muted">{{ total_count }} task(s) found</p>
     </div>
     <div class="col-auto">
-        <a href="{% url 'tasks:task_create' %}" class="btn btn-info">
+        <a href="{% url 'tasks:task_create' %}" class="btn btn-info fw-bold">
             <i class="bi bi-plus-lg me-1"></i>New Task
         </a>
     </div>
@@ -21,32 +21,50 @@
         <form method="get" class="row g-3 align-items-end">
             <div class="col-md-3">
                 <label class="form-label small text-muted">Status</label>
-                {{ filter_form.status }}
+                <select name="status" class="form-select bg-dark text-light border-secondary">
+                    <option value="">All</option>
+                    <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Pending</option>
+                    <option value="in_progress" {% if request.GET.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                    <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Completed</option>
+                </select>
             </div>
             <div class="col-md-3">
                 <label class="form-label small text-muted">Priority</label>
-                {{ filter_form.priority }}
+                <select name="priority" class="form-select bg-dark text-light border-secondary">
+                    <option value="">All</option>
+                    <option value="low" {% if request.GET.priority == 'low' %}selected{% endif %}>Low</option>
+                    <option value="medium" {% if request.GET.priority == 'medium' %}selected{% endif %}>Medium</option>
+                    <option value="high" {% if request.GET.priority == 'high' %}selected{% endif %}>High</option>
+                </select>
             </div>
             <div class="col-md-3">
                 <label class="form-label small text-muted">Category</label>
-                {{ filter_form.category }}
+                <select name="category" class="form-select bg-dark text-light border-secondary">
+                    <option value="">All</option>
+                    {% for cat in filter_form.fields.category.queryset %}
+                    <option value="{{ cat.pk }}" {% if request.GET.category == cat.pk|stringformat:'s' %}selected{% endif %}>{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="col-md-3">
                 <label class="form-label small text-muted">Search</label>
-                {{ filter_form.search }}
+                <input type="text" name="search" class="form-control bg-dark text-light border-secondary"
+                       placeholder="Search tasks..." value="{{ request.GET.search|default:'' }}">
             </div>
             <div class="col-md-3">
                 <label class="form-label small text-muted">Due Before</label>
-                {{ filter_form.due_before }}
+                <input type="date" name="due_before" class="form-control bg-dark text-light border-secondary"
+                       value="{{ request.GET.due_before|default:'' }}">
             </div>
             <div class="col-md-3">
                 <div class="form-check">
-                    {{ filter_form.show_archived }}
-                    <label class="form-check-label text-muted">Show Archived</label>
+                    <input type="checkbox" name="show_archived" class="form-check-input" id="show_archived"
+                           {% if request.GET.show_archived == 'on' %}checked{% endif %}>
+                    <label class="form-check-label text-muted" for="show_archived">Show Archived</label>
                 </div>
             </div>
             <div class="col-md-6 text-end">
-                <button type="submit" class="btn btn-outline-info">
+                <button type="submit" class="btn btn-outline-info fw-bold">
                     <i class="bi bi-funnel me-1"></i>Filter
                 </button>
                 <a href="{% url 'tasks:task_list' %}" class="btn btn-outline-secondary">
@@ -81,18 +99,34 @@
         <div class="card bg-dark border-secondary h-100 task-card {% if task.is_overdue %}border-danger{% endif %}">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h5 class="card-title mb-0">{{ task.title|truncate_chars:35 }}</h5>
+                    <h5 class="card-title mb-0 text-light">{{ task.title|truncatechars:35 }}</h5>
                     {% if task.is_archived %}
                     <span class="badge bg-secondary">Archived</span>
                     {% endif %}
                 </div>
-                <p class="card-text text-muted small">{{ task.description|truncate_chars:80|default:"No description" }}</p>
+                <p class="card-text text-muted small">{{ task.description|truncatechars:80|default:"No description" }}</p>
 
                 <div class="d-flex flex-wrap gap-2 mb-3">
-                    <span class="badge" style="background: {{ task.status|status_badge_color }}">{{ task.get_status_display }}</span>
-                    <span class="badge" style="background: {{ task.priority|priority_badge_color }}">{{ task.get_priority_display }}</span>
+                    {% if task.status == 'pending' %}
+                    <span class="badge bg-warning text-dark">{{ task.get_status_display }}</span>
+                    {% elif task.status == 'in_progress' %}
+                    <span class="badge bg-info text-dark">{{ task.get_status_display }}</span>
+                    {% elif task.status == 'completed' %}
+                    <span class="badge bg-success">{{ task.get_status_display }}</span>
+                    {% else %}
+                    <span class="badge bg-secondary">{{ task.get_status_display }}</span>
+                    {% endif %}
+
+                    {% if task.priority == 'high' %}
+                    <span class="badge bg-danger">{{ task.get_priority_display }}</span>
+                    {% elif task.priority == 'medium' %}
+                    <span class="badge bg-warning text-dark">{{ task.get_priority_display }}</span>
+                    {% else %}
+                    <span class="badge bg-success">{{ task.get_priority_display }}</span>
+                    {% endif %}
+
                     {% if task.category %}
-                    <span class="badge" style="background: {{ task.category.color }}">{{ task.category.name }}</span>
+                    <span class="badge" style="background: {{ task.category.color }}; color: #fff;">{{ task.category.name }}</span>
                     {% endif %}
                 </div>
 
@@ -102,15 +136,17 @@
                     {% if task.is_overdue %}
                     <strong>Overdue: {{ task.due_date }}</strong>
                     {% else %}
-                    Due: {{ task.due_date }} ({{ task.days_remaining }}d left)
+                    Due: {{ task.due_date }}
                     {% endif %}
                 </div>
                 {% endif %}
 
                 {% if task.tags %}
                 <div class="mb-2">
-                    {% for tag in task.tags %}
+                    {% for tag in task.tags_list %}
                     <span class="badge bg-dark border border-secondary text-muted">#{{ tag }}</span>
+                    {% empty %}
+                    <span class="text-muted small">No tags</span>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -154,7 +190,7 @@
         </li>
         {% endif %}
         <li class="page-item active">
-            <span class="page-link bg-info border-info">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <span class="page-link bg-info text-dark fw-bold">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
         </li>
         {% if page_obj.has_next %}
         <li class="page-item">
@@ -173,7 +209,7 @@
     <i class="bi bi-inbox display-1 text-muted"></i>
     <h4 class="mt-3 text-muted">No tasks found</h4>
     <p class="text-muted">Create your first task to get started.</p>
-    <a href="{% url 'tasks:task_create' %}" class="btn btn-info">
+    <a href="{% url 'tasks:task_create' %}" class="btn btn-info fw-bold">
         <i class="bi bi-plus-lg me-2"></i>Create Task
     </a>
 </div>
