@@ -1,0 +1,422 @@
+/* Smart Task Manager - Fixed Styles */
+/* Properly overrides Bootstrap for dark theme */
+
+/* ============================================
+   CSS VARIABLES
+   ============================================ */
+:root {
+    --bg-dark: #0a192f;
+    --bg-card: #112240;
+    --bg-light: #233554;
+    --bg-hover: #1d3557;
+    --text-primary: #e6f1ff;
+    --text-secondary: #8892b0;
+    --text-muted: #64ffda;
+    --accent: #64ffda;
+    --accent-hover: #4fd1b8;
+    --danger: #ef476f;
+    --warning: #ffd166;
+    --success: #06d6a0;
+    --info: #64ffda;
+    --border-color: #233554;
+}
+
+/* ============================================
+   BASE STYLES (High specificity to override Bootstrap)
+   ============================================ */
+html body {
+    background-color: var(--bg-dark) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    min-height: 100vh;
+}
+
+/* ============================================
+   TEXT COLORS (Override Bootstrap text colors)
+   ============================================ */
+html body,
+html body h1, html body h2, html body h3, 
+html body h4, html body h5, html body h6,
+html body p, html body span, html body div,
+html body a, html body li, html body td,
+html body th, html body label, html body strong,
+html body .card-title, html body .card-text,
+html body .stat-number, html body .stat-label,
+html body .task-title, html body .task-desc,
+html body .category-name, html body .nav-link,
+html body .dropdown-item, html body .form-label,
+html body .breadcrumb-item, html body .page-link,
+html body .list-group-item, html body .alert,
+html body .modal-title, html body .modal-body,
+html body .toast, html body .popover,
+html body .tooltip, html body .badge {
+    color: var(--text-primary) !important;
+}
+
+/* Secondary/Muted text */
+html body .text-muted,
+html body .text-secondary,
+html body .form-text,
+html body small,
+html body .small {
+    color: var(--text-secondary) !important;
+}
+
+/* Links */
+html body a {
+    color: var(--accent) !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease;
+}
+
+html body a:hover {
+    color: var(--accent-hover) !important;
+    text-decoration: underline !important;
+}
+
+/* ============================================
+   BACKGROUND COLORS
+   ============================================ */
+html body .card,
+html body .modal-content,
+html body .dropdown-menu,
+html body .list-group-item,
+html body .toast,
+html body .popover,
+html body .offcanvas {
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+}
+
+html body .card-header,
+html body .modal-header,
+html body .list-group-item-action:hover,
+html body .dropdown-item:hover,
+html body .table-hover tbody tr:hover {
+    background-color: var(--bg-hover) !important;
+}
+
+/* ============================================
+   FORM CONTROLS
+   ============================================ */
+html body .form-control,
+html body .form-select,
+html body .input-group-text {
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+html body .form-control:focus,
+html body .form-select:focus {
+    background-color: var(--bg-card) !important;
+    border-color: var(--accent) !important;
+    color: var(--text-primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.15) !important;
+}
+
+html body .form-control::placeholder {
+    color: var(--text-secondary) !important;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+html body .btn-info {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: var(--bg-dark) !important;
+    font-weight: 600 !important;
+}
+
+html body .btn-info:hover {
+    background-color: var(--accent-hover) !important;
+    border-color: var(--accent-hover) !important;
+    color: var(--bg-dark) !important;
+}
+
+html body .btn-outline-info {
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
+    background-color: transparent !important;
+}
+
+html body .btn-outline-info:hover {
+    background-color: var(--accent) !important;
+    color: var(--bg-dark) !important;
+}
+
+html body .btn-primary {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: var(--bg-dark) !important;
+}
+
+html body .btn-secondary {
+    background-color: var(--bg-light) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+html body .navbar {
+    background-color: var(--bg-card) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+html body .navbar-brand {
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+}
+
+html body .navbar-brand:hover {
+    color: var(--accent-hover) !important;
+}
+
+html body .nav-link {
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+    transition: color 0.2s ease !important;
+}
+
+html body .nav-link:hover,
+html body .nav-link.active {
+    color: var(--accent) !important;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+html body .table {
+    color: var(--text-primary) !important;
+}
+
+html body .table thead th {
+    border-bottom-color: var(--border-color) !important;
+    color: var(--text-secondary) !important;
+}
+
+html body .table td,
+html body .table th {
+    border-top-color: var(--border-color) !important;
+}
+
+/* ============================================
+   ALERTS
+   ============================================ */
+html body .alert-danger {
+    background-color: rgba(239, 71, 111, 0.1) !important;
+    border-color: var(--danger) !important;
+    color: var(--danger) !important;
+}
+
+html body .alert-success {
+    background-color: rgba(6, 214, 160, 0.1) !important;
+    border-color: var(--success) !important;
+    color: var(--success) !important;
+}
+
+html body .alert-warning {
+    background-color: rgba(255, 209, 102, 0.1) !important;
+    border-color: var(--warning) !important;
+    color: var(--warning) !important;
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+html body .page-link {
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+    transition: all 0.2s ease;
+}
+
+html body .page-link:hover {
+    background-color: var(--bg-hover) !important;
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
+}
+
+html body .page-item.active .page-link {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: var(--bg-dark) !important;
+}
+
+/* ============================================
+   BREADCRUMB
+   ============================================ */
+html body .breadcrumb-item + .breadcrumb-item::before {
+    color: var(--text-secondary) !important;
+}
+
+html body .breadcrumb-item.active {
+    color: var(--text-secondary) !important;
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+html body .badge {
+    font-weight: 500 !important;
+    padding: 0.4em 0.8em !important;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-light);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+    background: rgba(100, 255, 218, 0.2);
+    color: var(--accent);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* ============================================
+   DASHBOARD SPECIFIC
+   ============================================ */
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(100, 255, 218, 0.1);
+    border-radius: 12px;
+    color: var(--accent);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+/* ============================================
+   TASK CARDS
+   ============================================ */
+.task-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.2s ease;
+}
+
+.task-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.task-title {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.task-meta {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   CATEGORY ITEMS
+   ============================================ */
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.category-item:hover {
+    background: var(--bg-hover);
+}
+
+.category-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.category-name {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.category-count {
+    margin-left: auto;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    background: var(--bg-light);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+}

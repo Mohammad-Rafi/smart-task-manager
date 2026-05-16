@@ -1,0 +1,26 @@
+databases:
+  - name: smart-task-db
+    plan: free
+    databaseName: smarttaskdb
+    user: smarttaskuser
+
+services:
+  - type: web
+    plan: free
+    name: smart-task-manager
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "python -m gunicorn smart_task_manager.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: DATABASE_URL
+        fromDatabase:
+          name: smart-task-db
+          property: connectionString
